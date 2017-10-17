@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Models\Event;
 
 class EventController extends Controller
@@ -16,8 +18,12 @@ class EventController extends Controller
      * @param int duration (in seconds)
      * @return App/Model/Event 
      */
-    public function create($request)
+    public function create(Request $request)
     {
-        return "hello";
+        $this->validate($request, [
+            'name' => 'required' 
+        ]);
+
+        return Event::findOrFail($request->input('id'));
     }
 }
