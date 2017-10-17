@@ -9,9 +9,9 @@ class Event extends Model
     protected $fillable = [
         'name',
         'location',
-        'start_date',
-        'start_time',
-        'duration'
+        'start_at',
+        'duration',
+        'hackathon_id'
     ];
 
     public function cards()

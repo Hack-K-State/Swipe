@@ -23,16 +23,16 @@ class EventController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'location' => 'required|string',
-            'start_date' => 'required|string',
-            'start_time' => 'required|string',
+            'start_at' => 'required|string',
+            'hackathon_id' => 'required|integer',
             'duration' => 'required|integer'
         ]);
 
         $event = Event::create([
             'name' => $request->input('name'),
             'location' => $request->input('location'),
-            'start_date' => $request->input('start_date'),
-            'start_time' => $request->input('start_time'),
+            'start_at' => $request->input('start_at'),
+            'hackathon_id' => $request->input('hackathon_id'),
             'duration' => $request->input('duration') 
         ]);
 
