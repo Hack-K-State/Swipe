@@ -21,9 +21,30 @@ class EventController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required' 
+            'name' => 'required|string',
+            'location' => 'required|string',
+            'start_date' => 'required|string',
+            'start_time' => 'required|string',
+            'duration' => 'required|integer'
         ]);
 
-        return Event::findOrFail($request->input('id'));
+        $event = Event::create([
+            'name' => $request->input('name'),
+            'location' => $request->input('location'),
+            'start_date' => $request->input('start_date'),
+            'start_time' => $request->input('start_time'),
+            'duration' => $request->input('duration') 
+        ]);
+
+        return $event;
+    }
+
+    /**
+     * Get all Events
+     *
+     * @return [App/Model/Event]
+     */
+    public function list(){
+        return Event::all();
     }
 }

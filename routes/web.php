@@ -24,8 +24,17 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     |--------------------------------------------------------------------------
     */
 
-    $router->post('/event', "EventController@create");
+    $router->post('/event', 'EventController@create');
+    $router->get('/event', 'EventController@list');
 
+    /*
+    |----------------------------------------------------------------------
+    | CardController 
+    |--------------------------------------------------------------------------
+    */
+
+    $router->post('/card', 'CardController@create');
+    $router->post('/card/{cardID}/event/{eventID}', 'CardController@createSwipe');
 
 });
 

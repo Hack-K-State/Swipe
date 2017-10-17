@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Card extends Model
 {
-    protected $fillable = [
-        'name',
-        'owner'
+    protected $fillable = [ 
+        'owner',
+        'identifier'
     ];
 
     public function events()
