@@ -45,7 +45,6 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->post('/hackathon', 'HackathonController@create');
     $router->get('/hackathon', 'HackathonController@list');
 
-
 });
 
 

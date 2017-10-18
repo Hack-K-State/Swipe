@@ -38,7 +38,8 @@ class HackathonController extends Controller
      *
      * @return [App/Model/Hackathons]
      */
-    public function list(){
-        return Hackathon::all();
+    public function list()
+    {
+        return Hackathon::with('events')->get();
     }
 }
