@@ -15,6 +15,10 @@ $router->get('/', function () {
     return view('main');
 });
 
+$router->get('/assign', function () {
+    return view('post_card');
+});
+
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
