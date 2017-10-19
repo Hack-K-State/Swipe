@@ -8,7 +8,7 @@
             CardID:<br>
             <input type="text" name="identifier">
             <br><br>
-            <input type="submit" value="Submit">
+            <input hidden type="submit" value="Submit">
         </form> 
 
         <script src="./scripts/post_card.js"></script>
