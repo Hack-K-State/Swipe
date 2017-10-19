@@ -40,6 +40,6 @@ class HackathonController extends Controller
      */
     public function list()
     {
-        return Hackathon::with('events')->get();
+        return Hackathon::with('events.cards')->get();
     }
 }

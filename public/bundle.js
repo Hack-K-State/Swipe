@@ -45,6 +45,14 @@ function makeOptionNode(value, text) {
     return opt;
 }
 
+function makeListItemNode(text) {
+    var li = document.createElement('li');
+    var textNode = document.createTextNode(text);
+    li.appendChild(textNode);
+    
+    return li;
+}
+
 function removeAllChildren(node) {
     while (node.hasChildNodes()) {
         node.removeChild(node.lastChild);
@@ -67,20 +75,89 @@ function setHackathonSelectionOnChange(hackathonSelection) {
     });
 }
 
+function loadSwipesForEvent(event) {
+    var swipeList = document.getElementById('swipe-list');
+   
+    removeAllChildren(swipeList);
+
+    event.cards.forEach(function(card) {
+        var li = makeListItemNode(card.owner);
+        swipeList.appendChild(li);
+    });
+}
+
+function setEventSelectionOnChange(eventSelection) {
+    eventSelection.addEventListener('change', function(e) {
+        loadSwipesForEvent(JSON.parse(this.value));
+    }); 
+}
+
 function loadEventsForHackathon(hackathon) {
     var eventSelection = document.getElementById('event-selection');
+
     removeAllChildren(eventSelection);
-    
+
     hackathon.events.forEach(function(event) {
         var optionNode = makeOptionNode(JSON.stringify(event), event.name + ' - ' + event.location);
         eventSelection.appendChild(optionNode);
     });
+
+    loadSwipesForEvent(hackathon.events[0]);
+}
+
+function postSwipe(cardID, eventID, listNode) {
+    client.post('/api/v1/card/' + cardID + '/event/' + eventID, {}, function(response){
+        var li = makeListItemNode(response.owner);
+        listNode.appendChild(li);
+    });
+}
+
+function setOnSwipe(length, callback) {
+    document.onkeypress = function(e) {
+        e = e || window.event;
+        var charCode = (typeof e.which == 'number') ? e.which : e.keyCode;
+
+        if(localStorage.getItem('card') && localStorage.getItem('card') != 'null') {
+            localStorage.setItem('card', localStorage.getItem('card') + String.fromCharCode(charCode));
+        } else {
+            // remove localstorage if it takes 300 ms 
+            localStorage.setItem('card', String.fromCharCode(charCode));
+            setTimeout(function() {
+                localStorage.removeItem('card');
+            }, 300);
+        }
+        // when reach on certain length within 300 ms, it is not typed by a human being 
+        if(localStorage.getItem('card').length == length) {
+            callback(localStorage.getItem('card')); 
+        }
+    }
+
+
 }
 
 function main() { 
     var hackathonSelection = document.getElementById('hackathon-selection');
-  
+    var eventSelection = document.getElementById('event-selection');
+    var swipeList = document.getElementById('swipe-list');
+
     setHackathonSelectionOnChange(hackathonSelection);
+    setEventSelectionOnChange(eventSelection);
+
+    setOnSwipe(6, function(data) {
+        var len = data.length; 
+        if(!(data[0] == '%' && data[len - 1] == '?')) {
+            return;
+        }
+
+        var id = data.substring(1, len - 1);
+       
+        var idx = eventSelection.selectedIndex;
+        var value = eventSelection.options[idx].value
+        var event = JSON.parse(value) 
+
+        postSwipe(id, event.id, swipeList);
+    });
+
     fetchAndInsertHackathons(hackathonSelection);
 }
 

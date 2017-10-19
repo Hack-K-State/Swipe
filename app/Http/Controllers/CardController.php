@@ -42,6 +42,6 @@ class CardController extends Controller
 
         $card->events()->attach($eventID, ['created_at' => \Carbon\Carbon::now()]);
 
-        return response(200); 
+        return $card; 
     }
 }
