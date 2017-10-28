@@ -1,0 +1,34 @@
+body {
+  background-color: #4C257F;
+  font-family: 'Raleway', sans-serif !important;
+
+}
+
+.content-center {
+  width: 40%;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+h2 {
+  color: white;
+}
+
+.participant-list {
+  color: white;
+}
+
+.nav-item {
+  color: white !important;
+}
+
+
+@media (max-width: 800px) {
+  .content-center {
+    width: 60%;
+  }
+}
