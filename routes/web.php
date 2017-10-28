@@ -19,12 +19,16 @@ $router->get('/assign', function () {
     return view('post_card');
 });
 
+$router->get('/event', function() {
+    return view('event');
+});
+
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     /*
     |----------------------------------------------------------------------
-    | EventController 
+    | EventController
     |--------------------------------------------------------------------------
     */
 
@@ -33,7 +37,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     /*
     |----------------------------------------------------------------------
-    | CardController 
+    | CardController
     |--------------------------------------------------------------------------
     */
 
@@ -42,7 +46,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     /*
     |----------------------------------------------------------------------
-    | HackathonController 
+    | HackathonController
     |--------------------------------------------------------------------------
     */
 
@@ -50,5 +54,3 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->get('/hackathon', 'HackathonController@list');
 
 });
-
-

@@ -26,6 +26,14 @@ h2 {
   color: white !important;
 }
 
+.button-white {
+  color: white;
+}
+
+.form-span {
+  color: white;
+}
+
 
 @media (max-width: 800px) {
   .content-center {
