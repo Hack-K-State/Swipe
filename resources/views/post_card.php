@@ -27,9 +27,11 @@
         <h1>Assign Card</h1>
         <form id="form-card-assign">
           <div class="uk-margin">
+            <span class="form-span">Assigned To</span>
             <input class="uk-input uk-form-width-large" type="text" placeholder="Assigned To" name="owner">
           </div>
           <div class="uk-margin">
+            <span class="form-span">Card ID</span>
             <input class="uk-input uk-form-width-large" type="text" placeholder="Card ID" name="identifier">
           </div>
           <input hidden type="submit" value="Submit">
