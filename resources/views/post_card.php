@@ -17,6 +17,7 @@
       <ul class="uk-navbar-nav">
         <li><a class="nav-item" href="/">Add Attendee</a></li>
         <li><a class="nav-item" href="/assign">Assign Card</a></li>
+        <li><a class="nav-item" href="/event">Add Event</a></li>
       </ul>
     </div>
   </nav>
