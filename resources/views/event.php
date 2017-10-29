@@ -38,17 +38,17 @@
           </div>
           <div class="uk-margin">
             <span class="form-span">Start Time</span>
-            <input type="text" class="uk-input" id="datetimepicker" name="time-trade" value="Start Time"/>
+            <input type="text" class="uk-input" id="datetimepicker" name="start_at" value="Start Time"/>
           </div>
           <div class="uk-margin">
             <span class="form-span">Duration</span>
-            <input type="text" class="uk-input" id="timepicker" name="time-trade" value="Duration"/>
+            <input type="text" class="uk-input" id="timepicker" name="duration" value="Duration"/>
           </div>
           <div class="uk-margin">
             <span class="form-span">Hackathon</span>
             <select class="uk-select" id="hackathon-selection"></select>
           </div>
-          <input class="uk-button uk-button-default uk-align-center button-white" onsubmit="submitEvent()" type="submit" value="Submit">
+          <input class="uk-button uk-button-default uk-align-center button-white" type="submit" value="Submit">
         </form>
       </div>
     </div>
