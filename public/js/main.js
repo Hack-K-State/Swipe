@@ -1,21 +1,21 @@
 var HttpClient = function() {
     this.get = function(url, callback) {
         var xhr = new XMLHttpRequest();
-        
+
         xhr.addEventListener('readystatechange', function() {
             if (this.readyState === 4 && this.status == 200) {
                 callback(JSON.parse(this.responseText));
             }
         });
 
-        xhr.open('GET', url);            
+        xhr.open('GET', url);
         xhr.send(null);
     }
 
     this.post = function(url, params, callback) {
         var data = new FormData();
 
-        Object.entries(params).forEach(function([key, value]) { 
+        Object.entries(params).forEach(function([key, value]) {
             data.append(key, value);
         });
 
@@ -25,13 +25,13 @@ var HttpClient = function() {
             if (this.readyState === 4 && this.status == 200) {
                 callback(JSON.parse(this.responseText));
             }
-        }); 
+        });
 
         xhr.open("POST", url);
         xhr.setRequestHeader("accept", "application/json");
-        
+
         xhr.send(data);
-    } 
+    }
 }
 
 var client = new HttpClient();
@@ -47,9 +47,10 @@ function makeOptionNode(value, text) {
 
 function makeListItemNode(text) {
     var li = document.createElement('li');
+    li.style.color = "white";
     var textNode = document.createTextNode(text);
     li.appendChild(textNode);
-    
+
     return li;
 }
 
@@ -64,7 +65,7 @@ function fetchAndInsertHackathons(hackathonSelection) {
         response.forEach(function(item){
             var optionNode = makeOptionNode(JSON.stringify(item), item.name + ' - ' + item.city + ', ' + item.state);
             hackathonSelection.appendChild(optionNode);
-        });    
+        });
         loadEventsForHackathon(response[0]);
     });
 }
@@ -77,7 +78,7 @@ function setHackathonSelectionOnChange(hackathonSelection) {
 
 function loadSwipesForEvent(event) {
     var swipeList = document.getElementById('swipe-list');
-   
+
     removeAllChildren(swipeList);
 
     event.cards.forEach(function(card) {
@@ -89,7 +90,7 @@ function loadSwipesForEvent(event) {
 function setEventSelectionOnChange(eventSelection) {
     eventSelection.addEventListener('change', function(e) {
         loadSwipesForEvent(JSON.parse(this.value));
-    }); 
+    });
 }
 
 function loadEventsForHackathon(hackathon) {
@@ -120,22 +121,22 @@ function setOnSwipe(length, callback) {
         if(localStorage.getItem('card') && localStorage.getItem('card') != 'null') {
             localStorage.setItem('card', localStorage.getItem('card') + String.fromCharCode(charCode));
         } else {
-            // remove localstorage if it takes 300 ms 
+            // remove localstorage if it takes 300 ms
             localStorage.setItem('card', String.fromCharCode(charCode));
             setTimeout(function() {
                 localStorage.removeItem('card');
             }, 300);
         }
-        // when reach on certain length within 300 ms, it is not typed by a human being 
+        // when reach on certain length within 300 ms, it is not typed by a human being
         if(localStorage.getItem('card').length == length) {
-            callback(localStorage.getItem('card')); 
+            callback(localStorage.getItem('card'));
         }
     }
 
 
 }
 
-function main() { 
+function main() {
     var hackathonSelection = document.getElementById('hackathon-selection');
     var eventSelection = document.getElementById('event-selection');
     var swipeList = document.getElementById('swipe-list');
@@ -144,16 +145,16 @@ function main() {
     setEventSelectionOnChange(eventSelection);
 
     setOnSwipe(6, function(data) {
-        var len = data.length; 
+        var len = data.length;
         if(!(data[0] == '%' && data[len - 1] == '?')) {
             return;
         }
 
         var id = data.substring(1, len - 1);
-       
+
         var idx = eventSelection.selectedIndex;
         var value = eventSelection.options[idx].value
-        var event = JSON.parse(value) 
+        var event = JSON.parse(value)
 
         postSwipe(id, event.id, swipeList);
     });
@@ -162,4 +163,3 @@ function main() {
 }
 
 window.onload = main;
-
