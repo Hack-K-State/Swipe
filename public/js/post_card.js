@@ -25,7 +25,7 @@ function main() {
 
         var id = form[1].value;
         var len = id.length
-        if(!(id[0] == '%' && id[len - 1] == '?' && len == 6)) {
+        if(!(id[0] == '%' && id[len - 1] == '?' && len == 5)) {
             alert('Malformed Card ID.');
             return;
         }
