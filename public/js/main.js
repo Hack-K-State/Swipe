@@ -118,6 +118,8 @@ function setOnSwipe(length, callback) {
         e = e || window.event;
         var charCode = (typeof e.which == 'number') ? e.which : e.keyCode;
 
+        console.log(charCode);
+
         if(localStorage.getItem('card') && localStorage.getItem('card') != 'null') {
             localStorage.setItem('card', localStorage.getItem('card') + String.fromCharCode(charCode));
         } else {
@@ -128,7 +130,11 @@ function setOnSwipe(length, callback) {
             }, 300);
         }
         // when reach on certain length within 300 ms, it is not typed by a human being
-        if(localStorage.getItem('card').length == length) {
+        var card = localStorage.getItem('card');
+        var cardLength = card.length;
+        console.log(card);
+        if((cardLength == 4 && card.slice(-1) == '?')
+            || cardLength == 5) {
             callback(localStorage.getItem('card'));
         }
     }
