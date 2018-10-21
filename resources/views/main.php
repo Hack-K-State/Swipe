@@ -26,6 +26,9 @@
     <div class="uk-container">
       <div class="content-center">
         <h1>Add Attendees to Event</h1>
+
+        <h2 class="count">Count:</h2><h2 id="count" class="count">0<h2>
+
         <div class="uk-margin">
           <select class="uk-select" id="hackathon-selection"></select>
         </div>

@@ -36,6 +36,8 @@ var HttpClient = function() {
 
 var client = new HttpClient();
 
+var swipeCount = 0;
+
 function makeOptionNode(value, text) {
     var opt = document.createElement('option');
     opt.value = value;
@@ -103,6 +105,9 @@ function loadEventsForHackathon(hackathon) {
         eventSelection.appendChild(optionNode);
     });
 
+    swipeCount = hackathon.events[0].cards.length;
+    updateCount();
+
     loadSwipesForEvent(hackathon.events[0]);
 }
 
@@ -110,7 +115,14 @@ function postSwipe(cardID, eventID, listNode) {
     client.post('/api/v1/card/' + cardID + '/event/' + eventID, {}, function(response){
         var li = makeListItemNode(response.owner);
         listNode.appendChild(li);
+        swipeCount++;
+        updateCount();
     });
+}
+
+function updateCount() {
+    var countElement = document.getElementById('count');
+    countElement.innerHTML = swipeCount;
 }
 
 function setOnSwipe(length, callback) {
