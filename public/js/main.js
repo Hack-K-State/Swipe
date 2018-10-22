@@ -121,6 +121,7 @@ function postSwipe(cardID, eventID, listNode) {
 }
 
 function updateCount() {
+    console.log(swipeCount);
     var countElement = document.getElementById('count');
     countElement.innerHTML = swipeCount;
 }
