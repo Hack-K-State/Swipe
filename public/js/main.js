@@ -82,6 +82,9 @@ function loadSwipesForEvent(event) {
     var swipeList = document.getElementById('swipe-list');
 
     removeAllChildren(swipeList);
+    swipeCount = event.cards.length;
+    updateCount();
+
 
     event.cards.forEach(function(card) {
         var li = makeListItemNode(card.owner);
@@ -91,6 +94,8 @@ function loadSwipesForEvent(event) {
 
 function setEventSelectionOnChange(eventSelection) {
     eventSelection.addEventListener('change', function(e) {
+        swipeCount = 0;
+        updateCount();
         loadSwipesForEvent(JSON.parse(this.value));
     });
 }
@@ -121,7 +126,6 @@ function postSwipe(cardID, eventID, listNode) {
 }
 
 function updateCount() {
-    console.log(swipeCount);
     var countElement = document.getElementById('count');
     countElement.innerHTML = swipeCount;
 }
